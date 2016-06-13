@@ -3,9 +3,9 @@
 
 <head>
 
-	<title>linkshort</title>
+    <title>linkshort</title>
 
-	<style type="text/css"></style>
+    <style type="text/css"></style>
 
     <!-- Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Josefin+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -23,86 +23,77 @@
 <body>
     <div class="container">
 
-  <div class="col-sm-3">
-  </div><!--com-sm-3-->
-  <div class="col-sm-6">
-	  <div class="animated flipInX">
-	<div class="title">
-		welcome to linkshort
-	</div><!--title-->
-	<hr>
-	<div class="descc">
-		a world-class link shortening service
-	</div>
-	  </div>
-		<div class="input-group" id="theForm">
-		      <input type="text" class="form-control"placeholder="Shorten..." onkeydown="if(event.keyCode == 13){createURL();}" id="urlField" name="url">
-		      <span class="input-group-btn">
-		        <button class="btn btn-default" type="button" onclick="createURL();">Launch!</button>
+        <div class="col-sm-3">
+        </div> <!--com-sm-3-->
+        <div class="col-sm-6">
+            <div class="animated flipInX"> <!--animated title entrance-->
+                <div class="title">
+                    welcome to linkshort
+                </div><!--title-->
+                <hr><!--line break-->
+                <div class="desc"><!--description-->
+                    a world-class link shortening service
+                </div><!--desc-->
+            </div><!--animation-->
+            <div class="input-group" id="theForm"><!--HTML for text field/button-->
+                <input type="text" class="form-control" placeholder="Shorten..." onkeydown="if(event.keyCode == 13){createURL();}" id="urlField" name="url"><!--text field-->
+                <span class="input-group-btn"><!--inline button-->
+		        <button class="btn btn-default" type="button" onclick="createURL();">Launch!</button><!--submission button-->
 		      </span>
-			</div><!--input-group-->
-	<div class="output">
-		your shotened url: (URL HERE)
-	</div>
-	<div class="footer">
-		test?
-	</div>
-	</div><!--col-sm-6-->
-  <div class="col-sm-3">
-  </div> <!--col-sm-3-->
-</div> <!--container-->
-<script type="text/javascript">
-$( document).ready(function() {
-  $("#theForm").hide();
-setTimeout(function(){
-$('#theForm').fadeIn(1000);
-},750);
-});
-</script>
-<script type="text/javascript">
-$( document ).ready(function() {
-  $(".output").hide();
-});
-isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
-if(isSafari) {
-  //is safari
-}
-function createURL() {
+            </div><!--input-group-->
+            <div class="output"><!--link output div (DO NOT REMOVE)-->
+                
+            </div><!--output-->
+            <div class="footer"><!--footer area-->
 
-  var text = $('#urlField').val();
-  if(text.includes(".") && !text.startsWith("http://"))
-  {
-    text = "http://" + text;
-  }
-  $.post("/createLink/", { url: text})
-  .done(function( data ) {
-    if(data.includes("invalid"))
-    {
-      //invalid
-      $(".output").fadeIn(1000);
-      $( ".output" ).html("There was an error. Make sure you entered a valid URL.");
-    }
-    else if(data.startsWith("success: "))
-    {
-      var urlId = data.replace("success: ","");
-      $(".output").fadeIn(1000);
-			$( ".output" ).html('Your shortened url: <a href="http://lnkshort.xyz/'+urlId+'">'+"http://lnkshort.xyz/"+urlId+"</a>");
-    }
-  });
-}
+            </div><!--footer-->
+        </div><!--col-sm-6-->
+        <div class="col-sm-3">
+        </div><!--col-sm-3-->
+    </div><!--container-->
+    
+    <!--textbox fade in-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#theForm").hide();
+            setTimeout(function() {
+                $('#theForm').fadeIn(1000);
+            }, 750);
+        });
+    </script><!--textbox-->
+    
+    <!--output link generator-->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(".output").hide();
+        });
+        isSafari = !!navigator.userAgent.match(/Version\/[\d\.]+.*Safari/)
+        if (isSafari) {
+            //is safari
+        }
 
-</script>
+        function createURL() {
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-79233118-1', 'auto');
-  ga('send', 'pageview');
-
-</script>
+            var text = $('#urlField').val();
+            if (text.includes(".") && !text.startsWith("http://")) {
+                text = "http://" + text;
+            }
+            $.post("/createLink/", {
+                    url: text
+                })
+                .done(function(data) {
+                    if (data.includes("invalid")) {
+                        //invalid
+                        $(".output").fadeIn(1000);
+                        $(".output").html("There was an error. Make sure you entered a valid URL.");
+                    } else if (data.startsWith("success: ")) {
+                        var urlId = data.replace("success: ", "");
+                        $(".output").fadeIn(1000);
+                        $(".output").html('Your shortened url: <a href="http://lnkshort.xyz/' + urlId + '">' + "http://lnkshort.xyz/" + urlId + "</a>");
+                    }
+                });
+        }
+    </script><!--output-->
 </body>
 
 </html>
